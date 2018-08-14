@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tonkia.checkout.data.LoginMapper">
+
+	<resultMap type="userInfo" id="rmUserInfo">
+		<id column="user_id" property="id" />
+		<result column="user_phone" property="phone" />
+		<result column="user_pwd" property="pwd" />
+		<result column="identify_code" property="identifyCode" />
+		<result column="identify_time" property="identifyTime" />
+	</resultMap>
+
+	<select id="getUserByPhone" parameterType="string" resultMap="rmUserInfo">
+		select *
+		from tb_user where user_phone=#{phone}
+	</select>
+
+	<insert id="registerIdentifyCode">
+		insert into tb_user
+		values(seq_user_id.nextval,#{phone},null,#{identifyCode},sysdate)
+	</insert>
+
+	<update id="updateIdentifyCode">
+	update tb_user set
+	identify_code=#{identifyCode},identify_time=sysdate,user_pwd=null where
+	user_phone=#{phone}
+	</update>
+
+	<update id="registerLogin">
+		update tb_user set user_pwd=#{pwd},identify_code
+		=null where user_phone=#{phone}
+	</update>
+
+
+</mapper>

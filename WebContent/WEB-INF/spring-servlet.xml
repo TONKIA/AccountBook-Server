@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        ">
+
+	<context:component-scan base-package="com.tonkia.checkout"></context:component-scan>
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+
+	<!-- 视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/content/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- 配置mybatis -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+		<property name="basePackage" value="com.tonkia.checkout.data"></property>
+	</bean>
+
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"></property>
+		<property name="typeAliasesPackage" value="com.tonkia.checkout.vo"></property>
+		<property name="mapperLocations">
+			<array>
+				<value>classpath*:com.tonkia.checkout.data.*Mapper.xml</value>
+			</array>
+		</property>
+	</bean>
+
+	<!-- 数据源 -->
+	<bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="username" value="checkout"></property>
+		<property name="password" value="Txk19961003"></property>
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:tong"></property>
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+	</bean>
+
+</beans>
