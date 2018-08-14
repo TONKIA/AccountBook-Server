@@ -46,7 +46,7 @@
 	<bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="username" value="checkout"></property>
-		<property name="password" value="Txk19961003"></property>
+		<property name="password" value="123456"></property>
 		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:tong"></property>
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
 	</bean>
