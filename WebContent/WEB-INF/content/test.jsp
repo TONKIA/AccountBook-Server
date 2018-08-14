@@ -10,20 +10,20 @@
 	<h1>TEST USER</h1>
 	<hr />
 	<h2>Get Identify Code</h2>
-	<form action="/Checkout2/user/getIdentifyCode" method="post">
+	<form action="/CheckoutServer/user/getIdentifyCode" method="post">
 		Phone Number:<input type="text" name="phone" /><br /> 
 		<input type="submit" value="Get Identify Code" />
 	</form>
 	<hr />
 	<h2>Get Password</h2>
-	<form action="/Checkout2/user/login" method="post">
+	<form action="/CheckoutServer/user/login" method="post">
 		Phone Number:<input type="text" name="phone" /><br /> 
 		Identify Code:<input type="text" name="identifyCode" /><br />
 		<input type="submit" value="Get Password" />
 	</form>
 		<hr />
 	<h2>Login Identify</h2>
-	<form action="/Checkout2/user/identify" method="post">
+	<form action="/CheckoutServer/user/identify" method="post">
 		Phone Number:<input type="text" name="phone" /><br /> 
 		Password:<input type="text" name="password" /><br />
 		<input type="submit" value="Login Identify" />

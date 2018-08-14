@@ -27,7 +27,7 @@ public class LoginServiceImple implements LoginService {
 
 	// 获取验证码
 	@Override
-	public boolean getIndentifyCode(String phone) {
+	public String getIndentifyCode(String phone) {
 		// 需要校验手机号码
 		if (TextUtils.isMobileNum(phone)) {
 			// 生成4位的验证码
@@ -38,15 +38,18 @@ public class LoginServiceImple implements LoginService {
 				// 更新数据库中验证码
 				// 60秒更新一次
 				long cur = System.currentTimeMillis();
-				if (cur - ui.getIdentifyTime().getTime() > idTime) {
+				long interval = cur - ui.getIdentifyTime().getTime();
+				if (interval > idTime) {
 					HashMap<String, String> para = new HashMap<>();
 					para.put("phone", phone);
 					para.put("identifyCode", identifyCode);
 					if (loginMapper.updateIdentifyCode(para)) {
 						logger.info("IndentifyCode(" + phone + ":" + identifyCode + ")");
 						// TODO 发送短信
-						return true;
+						return "验证码已发送！";
 					}
+				} else {
+					return "还需等待" + (idTime - interval) / 1000 + "s";
 				}
 			} else {
 				// 注册到数据库中
@@ -56,11 +59,11 @@ public class LoginServiceImple implements LoginService {
 				if (loginMapper.registerIdentifyCode(para)) {
 					logger.info("IndentifyCode(" + phone + ":" + identifyCode + ")");
 					// TODO 发送短信
-					return true;
+					return "验证码已发送！";
 				}
 			}
 		}
-		return false;
+		return "验证码发送失败！";
 	}
 
 	// 验证验证码 返回

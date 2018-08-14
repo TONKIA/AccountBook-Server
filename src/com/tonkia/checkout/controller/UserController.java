@@ -20,16 +20,18 @@ public class UserController {
 	// 获取验证码
 	@RequestMapping("/getIdentifyCode")
 	public void getIdentifiyCode(String phone, HttpServletResponse response) throws IOException {
-		boolean res = loginService.getIndentifyCode(phone);
+		String res = loginService.getIndentifyCode(phone);
 		// 暂时先返回
-		response.getWriter().write("res:" + res);
+		response.getWriter().write("" + res);
 	}
 
 	// 使用验证码登录，获取pwd
 	@RequestMapping("/login")
 	public void login(String phone, String identifyCode, HttpServletResponse response) throws IOException {
 		String pwd = loginService.login(phone, identifyCode);
-		response.getWriter().write(pwd + "");
+		if (pwd != null) {
+			response.getWriter().write(pwd);
+		}
 	}
 
 	// 使用密码验证登录
