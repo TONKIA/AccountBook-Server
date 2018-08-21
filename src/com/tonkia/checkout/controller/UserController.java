@@ -22,7 +22,7 @@ public class UserController {
 	public void getIdentifiyCode(String phone, HttpServletResponse response) throws IOException {
 		String res = loginService.getIndentifyCode(phone);
 		// 暂时先返回
-		response.getWriter().write("" + res);
+		//response.getWriter().write("" + res);
 	}
 
 	// 使用验证码登录，获取pwd
